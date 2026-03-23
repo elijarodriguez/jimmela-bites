@@ -5,6 +5,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AdminLogin from "./pages/admin/AdminLogin.tsx";
+import AdminLayout from "./pages/admin/AdminLayout.tsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminOrders from "./pages/admin/AdminOrders.tsx";
+import AdminStock from "./pages/admin/AdminStock.tsx";
+import AdminDelivery from "./pages/admin/AdminDelivery.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +22,16 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Admin routes — completely separate from client site */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/admin/stock" element={<AdminStock />} />
+            <Route path="/admin/delivery" element={<AdminDelivery />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
