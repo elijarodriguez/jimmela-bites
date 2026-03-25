@@ -4,7 +4,10 @@ import { LowStockAlerts } from "@/components/admin/LowStockAlerts";
 import { orderBy, limit } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
+import React from 'react'; // Moved React import to top
 
+// Define interfaces with all optional fields
 interface OrderItem {
   productId?: string;
   productName?: string;
@@ -33,25 +36,23 @@ interface StatsDoc {
   revenueChange?: string;
 }
 
-// Fallback data with safe defaults
-const fallbackStats: StatsDoc[] = [
-  {
-    id: "summary",
-    totalOrders: 1247,
-    inStock: 8432,
-    deliveriesToday: 38,
-    revenueMonth: "₱284,500",
-    orderChange: "+12.3%",
-    stockChange: "+3.1%",
-    deliveryChange: "+5.7%",
-    revenueChange: "+8.9%",
-  },
-];
+// Fallback data
+const fallbackStats: StatsDoc = {
+  id: "summary",
+  totalOrders: 1247,
+  inStock: 8432,
+  deliveriesToday: 38,
+  revenueMonth: "₱284,500",
+  orderChange: "+12.3%",
+  stockChange: "+3.1%",
+  deliveryChange: "+5.7%",
+  revenueChange: "+8.9%",
+};
 
 const fallbackOrders: Order[] = [
-  { id: "ORD-2847", customer: "Maria Santos", items: [{productName: "Pork Siomai"}], total: 4000, status: "Processing", date: "Mar 23, 2026" },
-  { id: "ORD-2846", customer: "Aling Nena's Carinderia", items: [{productName: "Longganisa Original"}], total: 8500, status: "Shipped", date: "Mar 23, 2026" },
-  { id: "ORD-2845", customer: "JP Food Cart", items: [{productName: "Japanese Siomai"}], total: 6800, status: "Delivered", date: "Mar 22, 2026" },
+  { id: "ORD-2847", customer: "Maria Santos", items: [{ productName: "Pork Siomai" }], total: 4000, status: "Processing", date: "Mar 23, 2026" },
+  { id: "ORD-2846", customer: "Aling Nena's Carinderia", items: [{ productName: "Longganisa Original" }], total: 8500, status: "Shipped", date: "Mar 23, 2026" },
+  { id: "ORD-2845", customer: "JP Food Cart", items: [{ productName: "Japanese Siomai" }], total: 6800, status: "Delivered", date: "Mar 22, 2026" },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -62,58 +63,74 @@ const statusStyles: Record<string, string> = {
 
 const AdminDashboard = () => {
   const { toast } = useToast();
+  const [mounted, setMounted] = useState(false);
   
-  // Use fallback data immediately to ensure dashboard loads
-  const { data: statsData, loading: statsLoading } = useFirestoreCollection<StatsDoc>("dashboard_stats", [], fallbackStats);
-  const { data: ordersData, loading: ordersLoading } = useFirestoreCollection<Order>("orders", [orderBy("date", "desc"), limit(5)], fallbackOrders);
-  
-  // Safely get the first stats document with fallback
-  const s = (statsData && statsData[0]) || fallbackStats[0];
-  
-  // Safe stats with default values for missing fields
+  // Use fallback data immediately
+  const { data: statsData, loading: statsLoading, error: statsError } = 
+    useFirestoreCollection<StatsDoc>("dashboard_stats", [], [fallbackStats]);
+  const { data: ordersData, loading: ordersLoading, error: ordersError } = 
+    useFirestoreCollection<Order>("orders", [orderBy("date", "desc"), limit(5)], fallbackOrders);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // SAFE: Always ensure we have valid data
+  const safeStats = (statsData && statsData[0]) || fallbackStats;
+  const safeOrders = (() => {
+    if (ordersData && Array.isArray(ordersData) && ordersData.length > 0) {
+      return ordersData;
+    }
+    return fallbackOrders;
+  })();
+
   const stats = [
     {
       label: "Total Orders",
-      value: s.totalOrders?.toLocaleString() || "0",
+      value: safeStats.totalOrders?.toLocaleString() || "0",
       icon: ShoppingCart,
-      change: s.orderChange || "0%",
+      change: safeStats.orderChange || "0%",
       gradient: "from-blue-500 to-blue-600",
       bgGradient: "from-blue-50 to-blue-100",
     },
     {
-      label: "In Stock", 
-      value: s.inStock?.toLocaleString() || "0",
+      label: "In Stock",
+      value: safeStats.inStock?.toLocaleString() || "0",
       icon: Package,
-      change: s.stockChange || "0%",
+      change: safeStats.stockChange || "0%",
       gradient: "from-emerald-500 to-emerald-600",
       bgGradient: "from-emerald-50 to-emerald-100",
     },
     {
       label: "Deliveries Today",
-      value: String(s.deliveriesToday || 0),
+      value: String(safeStats.deliveriesToday || 0),
       icon: Truck,
-      change: s.deliveryChange || "0%",
+      change: safeStats.deliveryChange || "0%",
       gradient: "from-purple-500 to-purple-600",
       bgGradient: "from-purple-50 to-purple-100",
     },
     {
       label: "Revenue (Month)",
-      value: s.revenueMonth || "₱0",
+      value: safeStats.revenueMonth || "₱0",
       icon: TrendingUp,
-      change: s.revenueChange || "0%",
+      change: safeStats.revenueChange || "0%",
       gradient: "from-amber-500 to-amber-600",
       bgGradient: "from-amber-50 to-amber-100",
     },
   ];
 
-  const isPositiveChange = (change: string) => change?.startsWith("+") || false;
-  
-  // Safe orders array
-  const safeOrders = Array.isArray(ordersData) && ordersData.length > 0 ? ordersData : fallbackOrders;
+  const isPositiveChange = (change: string) => {
+    return change && change.startsWith("+");
+  };
+
+  // Don't render until mounted to prevent hydration issues
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="space-y-8">
-      {/* Header Section */}
+      {/* Header */}
       <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
@@ -126,14 +143,19 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Low Stock Alerts */}
-      <LowStockAlerts />
+      {/* Low Stock Alerts - COMMENTED OUT TO TEST */}
+      {/* <LowStockAlerts /> */}
+      
+      {/* Optional: Add a simple placeholder to see if this section works */}
+      <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-green-700">
+        ✅ LowStockAlerts component is temporarily disabled for testing
+      </div>
 
-      {/* Stats Cards Grid */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-        {stats.map((stat) => (
+        {stats.map((stat, index) => (
           <div
-            key={stat.label}
+            key={index}
             className="relative overflow-hidden rounded-2xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-300 bg-card group"
           >
             <div className="relative z-10">
@@ -156,7 +178,6 @@ const AdminDashboard = () => {
                   {stat.change}
                 </div>
               </div>
-
               <p className="text-3xl font-bold text-foreground font-display tabular-nums mb-1">
                 {stat.value}
               </p>
@@ -166,7 +187,7 @@ const AdminDashboard = () => {
         ))}
       </div>
 
-      {/* Recent Orders Section */}
+      {/* Recent Orders */}
       <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-border flex items-center justify-between bg-gradient-to-r from-slate-50 to-transparent">
           <div>
@@ -190,63 +211,46 @@ const AdminDashboard = () => {
                </tr>
             </thead>
             <tbody>
-              {safeOrders.map((o) => (
-                <tr
-                  key={o.id}
-                  className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors duration-200"
-                >
+              {safeOrders.map((order, idx) => (
+                <tr key={order.id || idx} className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors duration-200">
                   <td className="px-6 py-4">
-                    <span className="font-semibold text-foreground">{o.id}</span>
+                    <span className="font-semibold text-foreground">{order.id || "N/A"}</span>
                   </td>
                   <td className="px-6 py-4 text-foreground font-medium">
-                    {o.customer || "Unknown Customer"}
+                    {order.customer || "Unknown Customer"}
                   </td>
-                  <td className="px-6 py-4 text-muted-foreground hidden md:table-cell max-w-[250px]">
+                  <td className="px-6 py-4 text-muted-foreground hidden md:table-cell">
                     <span className="truncate block text-xs">
-                      {o.items && Array.isArray(o.items) && o.items.length > 0
-                        ? o.items.map((item) => item.productName || "Unknown Product").join(", ")
+                      {order.items && Array.isArray(order.items) && order.items.length > 0
+                        ? order.items.map(item => item.productName || "Product").join(", ")
                         : "No items"}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <span className="font-semibold text-foreground">
-                      ₱{o.total?.toLocaleString() || "0"}
+                      ₱{(order.total || 0).toLocaleString()}
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${
-                        statusStyles[o.status || ""] || "bg-muted text-muted-foreground"
-                      }`}
-                    >
+                    <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${
+                      statusStyles[order.status || ""] || "bg-muted text-muted-foreground"
+                    }`}>
                       <span className="w-2 h-2 rounded-full mr-2 bg-current opacity-60"></span>
-                      {o.status || "Pending"}
+                      {order.status || "Pending"}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-muted-foreground hidden sm:table-cell text-xs">
-                    {o.date || "N/A"}
+                    {order.date || "N/A"}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-blue-100 hover:text-blue-600" title="View details">
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-blue-100">
                         <Eye className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-amber-100 hover:text-amber-600" title="Edit order">
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-amber-100">
                         <Edit2 className="w-4 h-4" />
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0 hover:bg-red-100 hover:text-red-600"
-                        title="Delete order"
-                        onClick={() =>
-                          toast({
-                            title: "Delete Order",
-                            description: `Are you sure you want to delete ${o.id}? This action cannot be undone.`,
-                            variant: "destructive",
-                          })
-                        }
-                      >
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-red-100">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
