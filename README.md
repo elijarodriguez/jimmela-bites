@@ -50,14 +50,11 @@ The platform features:
 #### Products Management
 - **View All Products** — Complete product catalog with images
 - **Stock Management** — Update inventory levels in real-time
-- **Product Details** — Name, flavor, price, stock quantity, image URL
-- **Bulk Updates** — Edit multiple products simultaneously
 
 #### Orders Management
 - **Order Tracking** — View all customer orders with details
 - **Status Updates** — Update order status: Pending → Processing → Out for Delivery → Delivered → Cancelled
 - **Order Details Modal** — View complete order information including items, customer details, and total
-- **Order Filtering** — Filter by status (pending, processing, delivered, cancelled)
 - **Order Statistics** — Track orders by status with count badges
 
 #### Stock Management
@@ -75,16 +72,4 @@ The platform features:
 
 ---
 
-## 🗄️ Database Schema (Firebase Firestore)
 
-### Products Collection
-```javascript
-{
-  id: "auto-generated",
-  name: "Siomai",
-  flavor: "Pork",
-  price: 120,
-  stock: 50,
-  imageUrl: "https://...",
-  category: "siomai"
-}
