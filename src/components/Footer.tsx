@@ -18,7 +18,7 @@ const Footer = () => (
         <div className="lg:col-span-1">
           <div className="flex items-center gap-2.5 mb-4">
             <img src={logo} alt="Jimmela" className="h-10 w-10 rounded-full object-cover ring-2 ring-card/20" />
-            <span className="font-display text-lg font-bold">Jimmela Food</span>
+            <span className="font-display text-lg font-bold">Jimmela Food Products</span>
           </div>
           <p className="text-card/50 text-sm leading-relaxed max-w-xs">
             Premium frozen food products for businesses and food entrepreneurs across the Philippines.
