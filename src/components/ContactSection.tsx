@@ -22,10 +22,10 @@ const ContactSection = () => {
 
             <div className="space-y-5">
               {[
-                { icon: Phone, label: "Phone", value: "+63 917 123 4567" },
-                { icon: Mail, label: "Email", value: "orders@jimmelafood.ph" },
-                { icon: MapPin, label: "Location", value: "Calumpit, Bulacan, Philippines" },
-                { icon: Clock, label: "Hours", value: "Mon–Sat, 8:00 AM – 5:00 PM" },
+                { icon: Phone, label: "Phone", value: "+63 975 798 2690" },
+                { icon: Mail, label: "Email", value: "jimmelafoods@gmail.com" },
+                { icon: MapPin, label: "Location", value: "Jimmela Food Products, 2nd Floor, ASM PLAZA, McArthur Hiway, Caniogan, Calumpit, Philippines" },
+                { icon: Clock, label: "Hours", value: "Mon–Sat, 8:00 AM – 6:00 PM" },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-4 group">
                   <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">

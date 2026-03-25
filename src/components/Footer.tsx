@@ -55,10 +55,10 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-sm mb-4 text-card/80">Contact</h4>
           <ul className="space-y-2.5 text-card/50 text-sm">
-            <li>+63 917 123 4567</li>
-            <li>orders@jimmelafood.ph</li>
-            <li>Calumpit, Bulacan</li>
-            <li>Mon–Sat, 8AM – 5PM</li>
+            <li>+63 975 798 2690</li>
+            <li>jimmelafoods@gmail.com</li>
+            <li>Jimmela Food Products, 2nd Floor, ASM PLAZA, McArthur Hiway, Caniogan, Calumpit, Philippines</li>
+            <li>Mon–Sat, 8AM – 6PM</li>
           </ul>
         </div>
       </div>
@@ -68,7 +68,7 @@ const Footer = () => (
           © {new Date().getFullYear()} Jimmela Food Products. All rights reserved.
         </p>
         <p className="text-card/20 text-xs">
-          Calumpit, Bulacan, Philippines
+          Jimmela Food Products is a registered business in the Philippines. We are committed to providing high-quality frozen food products to our customers while adhering to all local regulations and standards.
         </p>
       </div>
     </div>
