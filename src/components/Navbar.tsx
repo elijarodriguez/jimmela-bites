@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/jimmela_logo.jpg";
 
+const broken: number = "this is a string";
+
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Products", href: "#products" },
