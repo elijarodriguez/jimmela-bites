@@ -13,7 +13,7 @@ const counters = [
 ];
 
 const AboutSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrolleveal();
 
   return (
     <section id="about" className="py-24 lg:py-32 bg-jimmela-warm relative overflow-hidden">
