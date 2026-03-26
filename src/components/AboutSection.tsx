@@ -1,17 +1,14 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ShieldCheck, Truck, Heart, Award } from "lucide-react";
-
-const values = [
-  { icon: ShieldCheck, title: "Quality Assured", desc: "Every product meets strict food safety standards before reaching you." },
-  { icon: Truck, title: "Reliable Delivery", desc: "Consistent supply chain so your business never runs out of stock." },
-  { icon: Heart, title: "Made with Care", desc: "Recipes perfected over years, using locally sourced ingredients." },
-  { icon: Award, title: "Trusted Brand", desc: "Serving 500+ partners across the Philippines with consistent excellence." },
+coshinsjhfewf
+asd___safa
+const values = [and", desc: "Serving 500+ partners across the Philippines with consistent excellence." },
 ];
 
 const counters = [
   { value: "10+", label: "Years in Business" },
   { value: "500+", label: "Partner Stores" },
-  { value: "6", label: "Product Lines" },
+  { value: "6", label: 
   { value: "50K+", label: "Packs Sold Monthly" },
 ];
 
