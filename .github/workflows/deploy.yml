@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [main, master]
 
+# Add permissions for PR comments
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 env:
   VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
   VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -103,11 +109,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && failure()
+    permissions:
+      pull-requests: write
+      issues: write
     
     steps:
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -120,19 +130,19 @@ jobs:
             );
             
             const message = `## ❌ CI/CD Pipeline Results
-            **Status:** Failed ❌
-            **Branch:** ${context.payload.pull_request.head.ref}
-            **Commit:** ${context.payload.pull_request.head.sha}
-            
-            The automated tests failed. Please check the logs above for details.
-            
-            ### Common Issues:
-            - TypeScript errors detected
-            - ESLint rules violated
-            - Unit tests failing
-            - Build errors
-            
-            Fix the issues and push again.`;
+**Status:** Failed ❌
+**Branch:** ${context.payload.pull_request.head.ref}
+**Commit:** ${context.payload.pull_request.head.sha}
+
+The automated tests failed. Please check the logs above for details.
+
+### Common Issues:
+- TypeScript errors detected
+- ESLint rules violated
+- Unit tests failing
+- Build errors
+
+Fix the issues and push again.`;
             
             if (botComment) {
               await github.rest.issues.updateComment({
