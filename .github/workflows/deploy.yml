@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main, master]
 
-# Add permissions for PR comments
 permissions:
   contents: read
   pull-requests: write
@@ -129,20 +128,17 @@ jobs:
               comment.user.type === 'Bot' && comment.body.includes('CI/CD Pipeline Results')
             );
             
-            const message = `## ❌ CI/CD Pipeline Results
-**Status:** Failed ❌
-**Branch:** ${context.payload.pull_request.head.ref}
-**Commit:** ${context.payload.pull_request.head.sha}
-
-The automated tests failed. Please check the logs above for details.
-
-### Common Issues:
-- TypeScript errors detected
-- ESLint rules violated
-- Unit tests failing
-- Build errors
-
-Fix the issues and push again.`;
+            const message = "## ❌ CI/CD Pipeline Results\n" +
+              "**Status:** Failed ❌\n" +
+              "**Branch:** " + context.payload.pull_request.head.ref + "\n" +
+              "**Commit:** " + context.payload.pull_request.head.sha + "\n\n" +
+              "The automated tests failed. Please check the logs above for details.\n\n" +
+              "### Common Issues:\n" +
+              "- TypeScript errors detected\n" +
+              "- ESLint rules violated\n" +
+              "- Unit tests failing\n" +
+              "- Build errors\n\n" +
+              "Fix the issues and push again.";
             
             if (botComment) {
               await github.rest.issues.updateComment({
