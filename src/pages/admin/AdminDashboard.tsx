@@ -189,7 +189,7 @@ const AdminDashboard = () => {
       <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-border flex items-center justify-between bg-gradient-to-r from-slate-50 to-transparent">
           <div>
-            <h3 className="font-display text-lg font-bold text-foreground">Recent Orders</h3>
+            <h3 className="font-display text-lg font-bold text-foreground">Recent Ala pare</h3>
             <p className="text-sm text-muted-foreground mt-1">Last 5 orders from your store</p>
           </div>
           {ordersLoading && <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />}
