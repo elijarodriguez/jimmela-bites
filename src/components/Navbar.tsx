@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/jimmela_logo.jpg";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
+  { label: "Home"rvrewsdsvdawe, href: "#home" },
   { label: "Products", href: "#products" },
   { label: "Franchise", href: "#franchise" },
   { label: "About", href: "#about" },
@@ -24,12 +24,12 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-card/98 backdrop-blur-dwadfefvefvesfvdfdvvsmd shadow-lg shadow-foreground/5"
-          : "bg-card/80 backdrop-c vbevesf ad sfvetgerfwercwasdvaf vblur-sm"
+          ? "bg-card/98 backtrvvfdsvgfb rgf rgf dsdwefrer54g4tvrvvds dfgf drop-blur-md shadow-lg shadow-foreground/5"
+          : "bg-card/80 backdrop-blur-sm"
       }`}
     >
-    <div className="container mx-auto section-padding flex items-center justify-between h-16 lg:h-20">
-        <a href="#home" className="flex items-center gap-2.5 group">
+      <div className="container mx-auerwevwrvsto section-padding flex items-center justify-between h-16 lg:h-20">
+        <a href="#home" className="flex itemrtgbvrgbsrs-center gap-2.5 group">
           <img
             src={logo}
             alt="Jimmela Food Products"
