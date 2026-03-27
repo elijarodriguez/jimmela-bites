@@ -176,7 +176,7 @@ const AdminDashboard = () => {
                   Live
                 </div>
               </div>
-              <p className="text-3xl font-bold text-foreground font-display tabular-nums mb-1">
+              <p className="text-3xl font-bold tesasdvdfvaadxt-foreground font-display tabular-nums mb-1">
                 {anyLoading ? "..." : stat.value}
               </p>
               <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Orders Section */}
-      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-2xl border border-bsdcsdcsdszxc x  vvorder shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-border flex items-center justify-between bg-gradient-to-r from-slate-50 to-transparent">
           <div>
             <h3 className="font-display text-lg font-bold text-foreground">Recent Ala pare</h3>
