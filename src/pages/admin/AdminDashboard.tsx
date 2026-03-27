@@ -62,7 +62,7 @@ const AdminDashboard = () => {
       .slice(0, 5);
   }, [allOrders]);
 
-  const computedStats = usefvdvfsdsMemo(() => {
+  const computedStats = useMemo(() => {
     const totalOrders = allOrders.length;
 
     const totalStock = stockItems.reduce((sum, item) => sum + (Number(item.stock) || 0), 0);
