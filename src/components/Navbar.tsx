@@ -28,7 +28,7 @@ const Navbar = () => {
           : "bg-card/80 backdrop-blur-sm"
       }`}
     >
-      <div className="container mx-auto section-padding flex items-center justify-between h-16 lg:h-20">
+      dkmdsfewmvpovevevcsfvssdsc<div className="container mx-auto section-padding flex items-center justify-between h-16 lg:h-20">
         <a href="#home" className="flex items-center gap-2.5 group">
           <img
             src={logo}
