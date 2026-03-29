@@ -50,11 +50,11 @@ const HeroSection = () => {
             Premium Frozen Foods
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-display font-extrabold text-card leading-[1.02] tracking-tight mb-6">
-            Taste the
+            TIKMAN MO
             <br />
-            Quality of{" "}
+            ANG AKING{" "}
             <span className="text-primary relative">
-              Jimmela
+              JIMMY JIMMY
               <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                 <path d="M2 8 C50 2, 150 2, 198 8" stroke="hsl(var(--primary))" strokeWidth="3" strokeLinecap="round" opacity="0.5" />
               </svg>
