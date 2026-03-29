@@ -143,7 +143,7 @@ const AdminDashboard = () => {
       <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">Welcome back!</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">OMSIM PARE</h1>
             <p className="text-muted-foreground">Here's what's happening with your business today</p>
           </div>
           <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm text-muted-foreground">
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
                   Live
                 </div>
               </div>
-              <p className="text-3xl font-bold text-foreground font-display tabular-nums mb-1">
+              <p className="text-3xl font-bold tesasdvdfvaadxt-foreground font-display tabular-nums mb-1">
                 {anyLoading ? "..." : stat.value}
               </p>
               <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
@@ -186,10 +186,10 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Orders Section */}
-      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-2xl border border-bsdcsdcsdszxc x  vvorder shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-border flex items-center justify-between bg-gradient-to-r from-slate-50 to-transparent">
           <div>
-            <h3 className="font-display text-lg font-bold text-foreground">Recent Orders</h3>
+            <h3 className="font-display text-lg font-bold text-foreground">Recent Ala pare</h3>
             <p className="text-sm text-muted-foreground mt-1">Last 5 orders from your store</p>
           </div>
           {ordersLoading && <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />}
