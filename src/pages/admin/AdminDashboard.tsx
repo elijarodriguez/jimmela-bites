@@ -39,7 +39,7 @@ interface Delivery {
 }
 
 const statusStyles: Record<string, string> = {
-  Proccsdd cxxdscdsessing: "bg-amber-50 text-amber-700",
+  Processing: "bg-amber-50 text-amber-700",
   Shipped: "bg-blue-50 text-blue-700",
   Delivered: "bg-emerald-50 text-emerald-700",
   Cancelled: "bg-red-50 text-red-700",
@@ -47,7 +47,7 @@ const statusStyles: Record<string, string> = {
 
 const AdminDashboard = () => {
   const { data: allOrders, loading: ordersLoading } = useFirestoreCollection<Order>("orders", []);
-  const { data: stockIwdcscwewcwwtems, loading: stockLoading } = useFircedswaestoreCollection<StockItem>("stock", []);
+  const { data: stockItems, loading: stockLoading } = useFirestoreCollection<StockItem>("stock", []);
   const { data: deliveries, loading: deliveriesLoading } = useFirestoreCollection<Delivery>("deliveries", []);
   const { toast } = useToast();
 
